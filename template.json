@@ -1,0 +1,159 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# Application Gateway start/stop dashboard\r\n\r\nYou need to select Application Gateway which you want to start/stop"
+      },
+      "name": "テキスト - 3"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n| where type == \"microsoft.network/applicationgateways\"\r\n| project id, name, resourceGroup, location,state = properties.operationalState\r\n",
+              "size": 1,
+              "exportedParameters": [
+                {
+                  "fieldName": "id",
+                  "parameterName": "id"
+                },
+                {
+                  "fieldName": "state",
+                  "parameterName": "state",
+                  "parameterType": 1
+                },
+                {
+                  "fieldName": "name",
+                  "parameterName": "name",
+                  "parameterType": 1
+                }
+              ],
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "value::all"
+              ],
+              "gridSettings": {
+                "sortBy": [
+                  {
+                    "itemKey": "$gen_link_id_0",
+                    "sortOrder": 1
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "$gen_link_id_0",
+                  "sortOrder": 1
+                }
+              ]
+            },
+            "name": "List AzFW"
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "items": [
+                {
+                  "type": 11,
+                  "content": {
+                    "version": "LinkItem/1.0",
+                    "style": "list",
+                    "links": [
+                      {
+                        "id": "63c78aea-e7d5-430a-8d00-bf8076d59356",
+                        "linkTarget": "ArmAction",
+                        "linkLabel": "Start {name}",
+                        "style": "primary",
+                        "linkIsContextBlade": true,
+                        "armActionContext": {
+                          "path": "{id}/start?api-version=2023-05-01",
+                          "headers": [],
+                          "params": [],
+                          "httpMethod": "POST",
+                          "title": "Start {name}",
+                          "description": "This operation will start {name}",
+                          "actionName": "Start {name}",
+                          "runLabel": "Start {name}"
+                        }
+                      }
+                    ]
+                  },
+                  "name": "リンク - 0"
+                }
+              ]
+            },
+            "customWidth": "50",
+            "conditionalVisibility": {
+              "parameterName": "state",
+              "comparison": "isEqualTo",
+              "value": "Stopped"
+            },
+            "name": "Start"
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "items": [
+                {
+                  "type": 11,
+                  "content": {
+                    "version": "LinkItem/1.0",
+                    "style": "list",
+                    "links": [
+                      {
+                        "id": "90ece32f-485e-4fb3-ba70-fd3b6ba90dba",
+                        "cellValue": "",
+                        "linkTarget": "ArmAction",
+                        "linkLabel": "Stop {name}",
+                        "preText": "",
+                        "style": "primary",
+                        "icon": "Stop",
+                        "linkIsContextBlade": true,
+                        "armActionContext": {
+                          "path": "{id}/stop?api-version=2023-05-01",
+                          "headers": [],
+                          "params": [],
+                          "httpMethod": "POST",
+                          "title": "Stop {name}",
+                          "description": "This operation will stop {name}.\r\n",
+                          "actionName": "Stop {name}",
+                          "runLabel": "Stop {name}"
+                        }
+                      }
+                    ]
+                  },
+                  "name": "リンク - 1"
+                }
+              ]
+            },
+            "customWidth": "50",
+            "conditionalVisibility": {
+              "parameterName": "state",
+              "comparison": "isEqualTo",
+              "value": "Running"
+            },
+            "name": "stop"
+          }
+        ]
+      },
+      "name": "グループ - 3"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
